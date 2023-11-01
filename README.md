@@ -7,7 +7,7 @@
  - Typescript
  - Tailwindcss 
 # Gif Presentation
-
+![todogif](https://github.com/pyghecik/Simple-TODO-LIST-Project/assets/127633002/83023a8e-7722-40e2-a957-23b8acfc42c9)
 # Try it yourself
  https://pyghecik.github.io/Simple-TODO-LIST-Project/
 # There are some errors showing up in a console but everything works still fine as it should
