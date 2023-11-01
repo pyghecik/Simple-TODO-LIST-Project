@@ -199,8 +199,8 @@ function NewTodoForm() {
       {/**Results Div*/}
       <div className="flex justify-center">
         <div className="w-[31rem]">
-          {allTasks.length === 0
-            ? "Loading your tasks!"
+          {Array.isArray(allTasks) === false
+            ? "Loading your tasks!..."
             : allTasks.map((todo) => {
                 return (
                   <>
