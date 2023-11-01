@@ -14,9 +14,11 @@ interface Task {
 function NewTodoForm() {
   const [task, setTask] = useState("");
   const [allTasks, setAllTasks] = useState<Task[]>(() => {
-    const localValue = localStorage.getItem("ITEMS");
-    if (localValue == null) return [];
-    else return JSON.parse(localValue);
+    if (typeof window !== "undefined") {
+      const localValue = localStorage.getItem("ITEMS");
+      if (localValue == null) return [];
+      else return JSON.parse(localValue);
+    }
   }); //Saving value of tasks to a local storage
   const textAreaValue = useRef<HTMLTextAreaElement>(null);
 
@@ -197,56 +199,62 @@ function NewTodoForm() {
       {/**Results Div*/}
       <div className="flex justify-center">
         <div className="w-[31rem]">
-          {allTasks.map((todo) => {
-            return (
-              <>
-                <li
-                  key={todo.id}
-                  className={
-                    todo.completed
-                      ? "list-none text-left mt-2 p-2 border border-black rounded-sm opacity-40 relative truncate"
-                      : "list-none text-left mt-2 p-2 border border-black rounded-sm relative truncate hover:bg-slate-50"
-                  }
-                >
-                  <label>
-                    <input
-                      type="checkbox"
-                      defaultChecked={todo.completed}
-                      onChange={(e) => toggleTodo(todo.id, e.target.checked)}
-                      className="mr-2 checked:bg-green-400"
-                    />
-                    {todo.title}
-                  </label>
-                  {/**Delete button */}
-                  <button
-                    className="absolute right-0 mr-2 underline"
-                    onClick={() => deleteTodo(todo.id)}
-                    disabled={todo.completed ? true : false}
-                  >
-                    delete
-                  </button>
-                  {/**Show more button */}
-                  <button
-                    className="absolute right-0 mr-[4.25rem] underline"
-                    onClick={() => toggleDescription(todo.id, !todo.descShowed)}
-                    disabled={todo.completed ? true : false}
-                  >
-                    {todo.descShowed && !todo.completed ? "less" : "show"}
-                  </button>
-                </li>
-                {/**Description showed?*/}
-                <div className="flex justify-center">
-                  <Description
-                    id={todo.id}
-                    isEnabled={todo.descShowed}
-                    isMarked={todo.completed}
-                    textContent={todo.description}
-                    isEditing={todo.isEditing}
-                  />
-                </div>
-              </>
-            );
-          })}
+          {allTasks.length === 0
+            ? "Loading your tasks!"
+            : allTasks.map((todo) => {
+                return (
+                  <>
+                    <li
+                      key={todo.id}
+                      className={
+                        todo.completed
+                          ? "list-none text-left mt-2 p-2 border border-black rounded-sm opacity-40 relative truncate"
+                          : "list-none text-left mt-2 p-2 border border-black rounded-sm relative truncate hover:bg-slate-50"
+                      }
+                    >
+                      <label>
+                        <input
+                          type="checkbox"
+                          defaultChecked={todo.completed}
+                          onChange={(e) =>
+                            toggleTodo(todo.id, e.target.checked)
+                          }
+                          className="mr-2 checked:bg-green-400"
+                        />
+                        {todo.title}
+                      </label>
+                      {/**Delete button */}
+                      <button
+                        className="absolute right-0 mr-2 underline"
+                        onClick={() => deleteTodo(todo.id)}
+                        disabled={todo.completed ? true : false}
+                      >
+                        delete
+                      </button>
+                      {/**Show more button */}
+                      <button
+                        className="absolute right-0 mr-[4.25rem] underline"
+                        onClick={() =>
+                          toggleDescription(todo.id, !todo.descShowed)
+                        }
+                        disabled={todo.completed ? true : false}
+                      >
+                        {todo.descShowed && !todo.completed ? "less" : "show"}
+                      </button>
+                    </li>
+                    {/**Description showed?*/}
+                    <div className="flex justify-center">
+                      <Description
+                        id={todo.id}
+                        isEnabled={todo.descShowed}
+                        isMarked={todo.completed}
+                        textContent={todo.description}
+                        isEditing={todo.isEditing}
+                      />
+                    </div>
+                  </>
+                );
+              })}
         </div>
       </div>
     </>
