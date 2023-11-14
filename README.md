@@ -6,7 +6,7 @@
  - Next.js
  - Typescript
  - Tailwindcss 
-# Gif Presentation
+# Gif Representation
 ![todogif](https://github.com/pyghecik/Simple-TODO-LIST-Project/assets/127633002/83023a8e-7722-40e2-a957-23b8acfc42c9)
 # Try it yourself
  https://pyghecik.github.io/Simple-TODO-LIST-Project/
